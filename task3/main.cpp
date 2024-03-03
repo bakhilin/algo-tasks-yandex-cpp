@@ -62,26 +62,7 @@ int getResult(std::stack<int> numbers, std::stack<std::string> vars, string need
             firstValInStack = 1;
             valueOfVar = value;
         }
-        
     }
-
-    // for(size_t i=0; i < numbers.size(); i++) {
-    //     arrValues[i] = numbers.top();
-    //     numbers.pop();
-        
-    //     arrVars[i] = vars.top();
-    //     vars.pop();
-
-
-    //     cout << arrVars[i] << " AND " << needVar << endl;
-
-    //     if (arrVars[i] == needVar && firstValInStack != 1)
-    //     {
-    //         firstValInStack = 1;
-    //         valueOfVar = arrValues[i];
-    //     }
-    // }
-
     return valueOfVar;
 }
 
@@ -121,19 +102,13 @@ int main(int argc, char const *argv[])
             {
                 if (line[i] == '{')
                 {
-                               
-                        tempStack.push(count);
-                        tempKey = keyChecker;
-                        keyChecker += 1;
-                        t = 2;
-                        
-                        count = 0;
-                        
-                        
-                        
+                    tempStack.push(count);
+                    tempKey = keyChecker;
+                    keyChecker += 1;
+                    t = 2;
+                    count = 0;        
                 } 
-                
-                
+
                 if (keyChecker==0)
                 {
                         while (!intermediateStackOfNumbers.empty() && !intermediateStackOfVar.empty())
@@ -142,9 +117,7 @@ int main(int argc, char const *argv[])
                             intermediateStackOfVar.pop();
                         }
                 }
-               
-               
-               
+
                 if (line[i] == '=')
                 {
                         k = 1;
@@ -152,29 +125,29 @@ int main(int argc, char const *argv[])
                 } 
                 if (k==1)
                 {
-                        if (line[i] == '-')
-                        {
-                            znak = 1;
-                            i = i+1;
-                        }
-                        
-                        if (isdigit(line[i]))
-                        {
-                            if (isdigit(line[line.length()-1]))
+                    if (line[i] == '-')
                             {
-                                /* code */
-                                 t = 1; // даёт нам понять, что после равно не стоит переменная
-                                if(line[i] != '{' && line[i] != '}'){
-                                    key += line[i];                       
-                                }
+                                znak = 1;
+                                i = i+1;
                             }
                             
-                           
-                        } else {
-                            if(line[i] != '=' && line[i] != ' ' && line[i] != '{' && line[i] != '}') {
-                                var2 += line[i];
-                            }
-                        }                    
+                            if (isdigit(line[i]))
+                            {
+                                if (isdigit(line[line.length()-1]))
+                                {
+                                    /* code */
+                                    t = 1; // даёт нам понять, что после равно не стоит переменная
+                                    if(line[i] != '{' && line[i] != '}'){
+                                        key += line[i];                       
+                                    }
+                                }
+                                
+                            
+                            } else {
+                                if(line[i] != '=' && line[i] != ' ' && line[i] != '{' && line[i] != '}') {
+                                    var2 += line[i];
+                                }
+                            }                    
                 } 
 
                 if(line[i] == '}') {  
@@ -195,29 +168,14 @@ int main(int argc, char const *argv[])
                     }
                     
                     count = 0;
-
-                    
-                    // cout << "key checker:" << keyChecker << endl;
-                    t=2;
-                    
-                    // test part BEGIN
-               /*
-                    int j_1 = tempStack.top();
-                    tempStack.pop();
-                    int j_2 = tempStack.top();
-                    tempStack.pop();
-                    int j = j_1 +j_2;
-                */
-                    // test part END
+                    t=2;               
                     while (j != 0)
                     {
                         intermediateStackOfNumbers.pop();
                         intermediateStackOfVar.pop();
                         j -=1;   
                     }
-                    
                 }
-                
             }
 
                 if (t==0)
@@ -231,24 +189,18 @@ int main(int argc, char const *argv[])
                             var1 += line[i];
                         }
                     }
-                    
-                    
+
                     if (keyChecker!=0)
                     {
-                        
                         res = getResult(intermediateStackOfNumbers, intermediateStackOfVar, var2); 
-                        
                         if (res==0)
                         {
                             res = getResult(stackNumbers, stackVars, var2);
                         }
                     } else {
-                        //cout << "KEY CHECKER 0" << endl;
                         res = getResult(stackNumbers, stackVars, var2);
                     }
 
-                    
-                    
                     if (keyChecker!=0)
                     {
                         intermediateStackOfNumbers.push(res);
@@ -258,9 +210,7 @@ int main(int argc, char const *argv[])
                         stackNumbers.push(res);
                         stackVars.push(var1);
                     }
-                
-               
-                   
+
                      cout << res << "\n";                     
                 }
             
@@ -304,9 +254,6 @@ int main(int argc, char const *argv[])
         }
         
         in.close(); // close this file
-
-        //printDataIntOfStack(stackNumbers);
-        //printDataStrOfStack(stackVars);
 
         return 0;
     }
